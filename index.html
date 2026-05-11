@@ -51,11 +51,14 @@
       const slider = document.getElementById("fear");
       const value = document.getElementById("value");
       const status = document.getElementById("status");
+      const CALM_MAX = 25;
+      const ALERT_MAX = 50;
+      const NERVOUS_MAX = 75;
 
       const labelFor = (amount) => {
-        if (amount < 25) return "Calm";
-        if (amount < 50) return "Alert";
-        if (amount < 75) return "Nervous";
+        if (amount < CALM_MAX) return "Calm";
+        if (amount < ALERT_MAX) return "Alert";
+        if (amount < NERVOUS_MAX) return "Nervous";
         return "Terrified";
       };
 
