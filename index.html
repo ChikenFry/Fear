@@ -51,15 +51,15 @@
       const slider = document.getElementById("fear");
       const value = document.getElementById("value");
       const status = document.getElementById("status");
-      const CALM_MAX = 25;
-      const ALERT_MAX = 50;
-      const NERVOUS_MAX = 75;
+      const LEVELS = [
+        { max: 24, label: "Calm" },
+        { max: 49, label: "Alert" },
+        { max: 74, label: "Nervous" },
+        { max: 100, label: "Terrified" },
+      ];
 
       const labelFor = (amount) => {
-        if (amount < CALM_MAX) return "Calm";
-        if (amount < ALERT_MAX) return "Alert";
-        if (amount < NERVOUS_MAX) return "Nervous";
-        return "Terrified";
+        return LEVELS.find((level) => amount <= level.max)?.label ?? "Terrified";
       };
 
       const update = () => {
