@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fear Meter</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: Arial, sans-serif;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: radial-gradient(circle at top, #2f2f4f, #0d0d16);
+        color: #f5f5ff;
+      }
+      main {
+        width: min(92vw, 520px);
+        padding: 1.5rem;
+        border-radius: 14px;
+        background: rgba(0, 0, 0, 0.35);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      }
+      h1 {
+        margin-top: 0;
+      }
+      input[type="range"] {
+        width: 100%;
+      }
+      .status {
+        margin-top: 1rem;
+        font-weight: 700;
+      }
+      .hint {
+        opacity: 0.8;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Fear Meter</h1>
+      <p class="hint">Move the slider to see your current fear level.</p>
+      <label for="fear">Fear level: <span id="value">50</span>%</label>
+      <input id="fear" type="range" min="0" max="100" value="50" />
+      <p class="status" id="status" aria-live="polite">Status loading...</p>
+    </main>
+    <script>
+      const slider = document.getElementById("fear");
+      const value = document.getElementById("value");
+      const status = document.getElementById("status");
+      const LEVELS = [
+        { max: 24, label: "Calm" },
+        { max: 49, label: "Alert" },
+        { max: 74, label: "Nervous" },
+        { max: 100, label: "Terrified" },
+      ];
+
+      const labelFor = (amount) => {
+        return (
+          LEVELS.find((level) => amount <= level.max)?.label ??
+          LEVELS[LEVELS.length - 1].label
+        );
+      };
+
+      const update = () => {
+        const amount = Number(slider.value);
+        value.textContent = String(amount);
+        status.textContent = labelFor(amount);
+      };
+
+      slider.addEventListener("input", update);
+      update();
+    </script>
+  </body>
+</html>
